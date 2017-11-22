@@ -1,4 +1,8 @@
 import { combineReducers } from 'redux';
+import { NavigationActions } from 'react-navigation';
+
+import { Navigator } from '../navigation/RootNavigator';
+
 import {
   REQUEST_LIST,
   RECEIVE_LIST,
@@ -6,8 +10,6 @@ import {
   REQUEST_ITEM,
   RECEIVE_ITEM
 } from '../actions/types';
-
-import RootNavigator from '../navigation/RootNavigator';
 
 function detailReducer(state = {
   isLoading: false,
@@ -39,10 +41,38 @@ function listReducer(state = {
   }
 }
 
+const detailsAction = Navigator.router.getActionForPathAndParams('Details');
+const detailsNavState = Navigator.router.getStateForAction(detailsAction);
+const listAction = Navigator.router.getActionForPathAndParams('List');
+const listNavState = Navigator.router.getStateForAction(listAction);
+
+function nav(state = listNavState, action) {
+  let nextState;
+  switch (action.type) {
+    case 'Details':
+      nextState = Navigator.router.getStateForAction(
+        NavigationActions.back(),
+        state
+      );
+      break;
+    case 'List':
+      nextState = Navigator.router.getStateForAction(
+        NavigationActions.navigate({ routeName: 'List' }),
+        state
+      );
+      break;
+    default:
+      nextState = Navigator.router.getStateForAction(action, state);
+      break;
+  }
+
+  return nextState || state;
+}
+
 const rootReducer = combineReducers({
   list: listReducer,
   item: detailReducer,
-  navigation: (state, action) => RootNavigator.router.getStateForAction(action, state)
+  nav
 });
 
 export default rootReducer;

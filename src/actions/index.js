@@ -5,6 +5,7 @@ import {
   REQUEST_ITEM,
   RECIEVE_ITEM
 } from './types';
+import { NavigationActions } from 'react-navigation';
 
 const URL = 'https://pokeapi.co/api/v2/pokemon/';
 
@@ -86,5 +87,11 @@ export function fetchListIfNeeded() {
     } else {
       return Promise.resolve();
     }
+  };
+}
+
+export function navigateToDetails() {
+  return (dispatch) => {
+    dispatch(NavigationActions.navigate({ routeName: 'Details' }));
   };
 }

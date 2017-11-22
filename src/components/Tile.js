@@ -11,7 +11,7 @@ class Tile extends Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => this.props.navigateToDetails()}>
         <View style={styles.view}>
           <ImageBackground 
             source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.index}.png` }}
