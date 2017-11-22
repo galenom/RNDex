@@ -19,7 +19,7 @@ class Tile extends Component {
           >
             <ActivityIndicator size='small' style={{ flex: 1 }} />
           </ImageBackground>
-          <Text>{this.props.index}. {this.props.name}</Text>
+          <Text style={{ fontFamily: 'Avenir' }}>{this.props.index}. {this.props.name}</Text>
         </View>
       </TouchableWithoutFeedback>
     );

@@ -6,7 +6,6 @@ import { Navigator } from '../navigation/RootNavigator';
 import {
   REQUEST_LIST,
   RECEIVE_LIST,
-  // SELECT_ITEM,
   REQUEST_ITEM,
   RECEIVE_ITEM
 } from '../actions/types';
@@ -16,8 +15,6 @@ function detailReducer(state = {
   data: {}
 }, action) {
   switch (action.type) {
-    // case SELECT_ITEM:
-      // return { ...state, isLoadingDetails: true };
     case REQUEST_ITEM:
       return { ...state, isLoadingDetails: true };
     case RECEIVE_ITEM:
@@ -33,16 +30,18 @@ function listReducer(state = {
 }, action) {
   switch (action.type) {
     case REQUEST_LIST:
-      return JSON.parse(JSON.stringify({ ...state, isLoadingList: true }));
+      return JSON.parse(JSON.stringify({
+         ...state, isLoadingList: true 
+      }));
     case RECEIVE_LIST:
-      return JSON.parse(JSON.stringify({ ...state, isLoadingList: false, data: action.list.results }));
+      return JSON.parse(JSON.stringify({
+        ...state, isLoadingList: false, data: action.list.results 
+      }));
     default:
       return state;
   }
 }
 
-const detailsAction = Navigator.router.getActionForPathAndParams('Details');
-const detailsNavState = Navigator.router.getStateForAction(detailsAction);
 const listAction = Navigator.router.getActionForPathAndParams('List');
 const listNavState = Navigator.router.getStateForAction(listAction);
 
